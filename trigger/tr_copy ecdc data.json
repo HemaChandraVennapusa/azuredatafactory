@@ -1,0 +1,29 @@
+{
+	"name": "tr_copy ecdc data",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_ingest_cases_death_data",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"sourceRelativeURL": "covid19/hospitalicuadmissionrates/csv/data.csv",
+					"sinkFileName": "hospitaldata.csv"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2021-11-29T13:12:00Z",
+				"endTime": "2021-11-30T13:09:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
