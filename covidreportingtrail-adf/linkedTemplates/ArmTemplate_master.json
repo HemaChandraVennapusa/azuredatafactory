@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "covidreportingtrail-adf"
+		},
+		"ls_ablob_trailstoragecontainer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_ablob_trailstoragecontainer'"
+		},
+		"ls_adls_covidreportingadls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_covidreportingadls'"
+		},
+		"ls_adls_covidreportingadls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://covidreportingtrailadls.dfs.core.windows.net/"
+		},
+		"ls_http_ecdcdata_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://opendata.ecdc.europa.eu"
+		},
+		"ls_http_mutiplefile_ecdcdata_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().baseURL}"
+		},
+		"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "covid19/hospitalicuadmissionrates/csv/data.csv"
+		},
+		"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospitaldata.csv"
+		},
+		"tr_ingest_population_data_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/66059811-3492-45bd-9394-c6a77e4b1446/resourceGroups/TrailEnvironmentResourceGroup/providers/Microsoft.Storage/storageAccounts/trailstoragecontainer"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "covidreportingtrail-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_ablob_trailstoragecontainer_connectionString": {
+						"value": "[parameters('ls_ablob_trailstoragecontainer_connectionString')]"
+					},
+					"ls_adls_covidreportingadls_accountKey": {
+						"value": "[parameters('ls_adls_covidreportingadls_accountKey')]"
+					},
+					"ls_adls_covidreportingadls_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_covidreportingadls_properties_typeProperties_url')]"
+					},
+					"ls_http_ecdcdata_properties_typeProperties_url": {
+						"value": "[parameters('ls_http_ecdcdata_properties_typeProperties_url')]"
+					},
+					"ls_http_mutiplefile_ecdcdata_properties_typeProperties_url": {
+						"value": "[parameters('ls_http_mutiplefile_ecdcdata_properties_typeProperties_url')]"
+					},
+					"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sourceRelativeURL": {
+						"value": "[parameters('tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sourceRelativeURL')]"
+					},
+					"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sinkFileName": {
+						"value": "[parameters('tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sinkFileName')]"
+					},
+					"tr_ingest_population_data_properties_typeProperties_scope": {
+						"value": "[parameters('tr_ingest_population_data_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

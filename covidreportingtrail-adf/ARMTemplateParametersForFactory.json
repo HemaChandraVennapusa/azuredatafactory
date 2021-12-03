@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covidreportingtrail-adf"
+		},
+		"ls_ablob_trailstoragecontainer_connectionString": {
+			"value": ""
+		},
+		"ls_adls_covidreportingadls_accountKey": {
+			"value": ""
+		},
+		"ls_adls_covidreportingadls_properties_typeProperties_url": {
+			"value": "https://covidreportingtrailadls.dfs.core.windows.net/"
+		},
+		"ls_http_ecdcdata_properties_typeProperties_url": {
+			"value": "https://opendata.ecdc.europa.eu"
+		},
+		"ls_http_mutiplefile_ecdcdata_properties_typeProperties_url": {
+			"value": "@{linkedService().baseURL}"
+		},
+		"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sourceRelativeURL": {
+			"value": "covid19/hospitalicuadmissionrates/csv/data.csv"
+		},
+		"tr_copy ecdc data_properties_pl_ingest_cases_death_data_parameters_sinkFileName": {
+			"value": "hospitaldata.csv"
+		},
+		"tr_ingest_population_data_properties_typeProperties_scope": {
+			"value": "/subscriptions/66059811-3492-45bd-9394-c6a77e4b1446/resourceGroups/TrailEnvironmentResourceGroup/providers/Microsoft.Storage/storageAccounts/trailstoragecontainer"
+		}
+	}
+}
