@@ -2,7 +2,7 @@
 	"name": "tr_copy ecdc data",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
